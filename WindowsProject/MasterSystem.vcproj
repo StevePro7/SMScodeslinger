@@ -166,12 +166,36 @@
 	</References>
 	<Files>
 		<Filter
+			Name="Logging"
+			>
+		</Filter>
+		<Filter
+			Name="TMS9918A"
+			>
+		</Filter>
+		<Filter
+			Name="MasterSystem"
+			>
+		</Filter>
+		<Filter
 			Name="WinMain"
 			>
 			<File
 				RelativePath="..\SourceCode\WinMain.cpp"
 				>
 			</File>
+		</Filter>
+		<Filter
+			Name="Emulator"
+			>
+		</Filter>
+		<Filter
+			Name="Z80"
+			>
+		</Filter>
+		<Filter
+			Name="SN79489"
+			>
 		</Filter>
 	</Files>
 	<Globals>
