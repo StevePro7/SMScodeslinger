@@ -21,7 +21,7 @@
 			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\"
 			IntermediateDirectory="$(SolutionDir)obj\$(ConfigurationName)\"
 			ConfigurationType="1"
-			CharacterSet="1"
+			CharacterSet="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -92,7 +92,7 @@
 			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\"
 			IntermediateDirectory="$(SolutionDir)obj\$(ConfigurationName)\"
 			ConfigurationType="1"
-			CharacterSet="1"
+			CharacterSet="0"
 			WholeProgramOptimization="1"
 			>
 			<Tool
@@ -168,6 +168,14 @@
 		<Filter
 			Name="Logging"
 			>
+			<File
+				RelativePath="..\SourceCode\LogMessages.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\SourceCode\LogMessages.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="TMS9918A"
