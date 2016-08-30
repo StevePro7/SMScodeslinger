@@ -191,6 +191,14 @@
 			Name="WinMain"
 			>
 			<File
+				RelativePath="..\SourceCode\MasterSystem.rc"
+				>
+			</File>
+			<File
+				RelativePath="..\SourceCode\resource.h"
+				>
+			</File>
+			<File
 				RelativePath="..\SourceCode\WinMain.cpp"
 				>
 			</File>
