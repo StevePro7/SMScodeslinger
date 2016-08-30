@@ -41,13 +41,14 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="..\ThirdPartyLibs\Externals\SDL\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				WarnAsError="true"
+				WarnAsError="false"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -120,7 +121,7 @@
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				WarnAsError="true"
+				WarnAsError="false"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -210,6 +211,26 @@
 		<Filter
 			Name="Z80"
 			>
+			<File
+				RelativePath="..\SourceCode\Z80.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\SourceCode\Z80.h"
+				>
+			</File>
+			<File
+				RelativePath="..\SourceCode\Z80.JumpTable.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\SourceCode\Z80.Mnemonics.h"
+				>
+			</File>
+			<File
+				RelativePath="..\SourceCode\Z80.Opcodes.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="SN79489"

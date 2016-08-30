@@ -1,7 +1,16 @@
 #include <windows.h>
+#include <shlobj.h>
+#include <string>
+#include "resource.h"
+#include "Config.h"
+#include "LogMessages.h"
 
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR szCmdLine, int iCmdShow)
 {
-     MessageBox (NULL, TEXT ("Hello, Windows 2015!"), TEXT ("HelloMsg"), 0) ;
-     return 0 ;
+	LogMessage* lm = LogMessage::CreateInstance();
+
+	MessageBox (NULL, TEXT ("Hello, Windows 2012!"), TEXT ("HelloMsg"), 0) ;
+
+	delete lm;
+	return 0 ;
 }

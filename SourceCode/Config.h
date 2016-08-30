@@ -11,7 +11,7 @@ template<typename typeData>
 inline bool TestBit(typeData inData, int inBitPosition)
 {
 	typeData lMsk = 1 << inBitPosition;
-	return (inData & iMsk) ? true : false;
+	return (inData & lMsk) ? true : false;
 }
 
 template<typename typeData>
