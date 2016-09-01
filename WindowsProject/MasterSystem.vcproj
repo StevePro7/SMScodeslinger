@@ -62,7 +62,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="SDL.lib SDLmain.lib OpenGL32.lib glut32.lib glu32.lib"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="..\ThirdPartyLibs\Externals\SDL\lib;..\ThirdPartyLibs\Externals\GL"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -116,6 +118,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
+				AdditionalIncludeDirectories="..\ThirdPartyLibs\Externals\SDL\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -135,7 +138,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="SDL.lib SDLmain.lib OpenGL32.lib glut32.lib glu32.lib"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="..\ThirdPartyLibs\Externals\SDL\lib;..\ThirdPartyLibs\Externals\GL"
 				GenerateDebugInformation="false"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -235,6 +240,14 @@
 		<Filter
 			Name="SN79489"
 			>
+			<File
+				RelativePath="..\SourceCode\SN79489.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\SourceCode\SN79489.h"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>

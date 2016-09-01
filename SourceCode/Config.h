@@ -53,7 +53,7 @@ int BitCount(typeData inData, int totalBits)
 		bool test = TestBit(inData, i);
 		if (test)
 		{
-			res++
+			res++;
 		}
 	}
 
