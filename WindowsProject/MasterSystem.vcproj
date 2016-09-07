@@ -188,6 +188,14 @@
 		<Filter
 			Name="TMS9918A"
 			>
+			<File
+				RelativePath="..\SourceCode\TMS9918A.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\SourceCode\TMS9918A.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="MasterSystem"
