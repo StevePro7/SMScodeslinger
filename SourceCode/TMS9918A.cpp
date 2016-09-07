@@ -39,19 +39,19 @@ void GetOldStyleColour( BYTE colNum, BYTE& red, BYTE& green, BYTE& blue )
 /////////////////////////////////////////////////////////////////////////
 
 TMS9918A::TMS9918A(void) :
-m_IsPAL(true)
-,m_NumScanlines(NUM_NTSC_VERTICAL)
-,m_IsVBlank(false)
-,m_IsSecondControlWrite(false)
-,m_Status(0)
-,m_RequestInterupt(false)
-,m_VScroll(0)
-,m_ReadBuffer(0)
-,m_Width(NUM_RES_HORIZONTAL)
-,m_Height(NUM_RES_VERTICAL)
-,m_TempWord(0)
-,m_Refresh(false)
-,m_UseGFXOpt(false)
+	m_IsPAL(true)
+	,m_NumScanlines(NUM_NTSC_VERTICAL)
+	,m_IsVBlank(false)
+	,m_IsSecondControlWrite(false)
+	,m_Status(0)
+	,m_RequestInterupt(false)
+	,m_VScroll(0)
+	,m_ReadBuffer(0)
+	,m_Width(NUM_RES_HORIZONTAL)
+	,m_Height(NUM_RES_VERTICAL)
+	,m_TempWord(0)
+	,m_Refresh(false)
+	,m_UseGFXOpt(false)
 {
 	Reset(false) ;
 }
@@ -137,7 +137,7 @@ void TMS9918A::Update(float nextCycle)
 			m_RefreshRatePerSecond++ ;
 			m_VCounter = 0 ;
 			m_VCounterFirst = true ;
-
+			
 			if (!m_UseGFXOpt)
 				Render( ) ;
 			m_Refresh = true ;
@@ -178,9 +178,9 @@ void TMS9918A::Update(float nextCycle)
 		{
 
 			m_ScreenDisabled = !IsRegBitSet(1,6) ;
-
-			if (!m_UseGFXOpt)
-				Render( ) ;
+			
+		if (!m_UseGFXOpt)
+			Render( ) ;
 		}
 
 		// decrement the line interupt counter during the active display period
@@ -246,24 +246,24 @@ BYTE TMS9918A::GetStatus( )
 
 void TMS9918A::WriteVDPAddress(BYTE data)
 {
-	// 	char buffer[200] ;
-	// 	sprintf(buffer, "Value before write is %x", GetAddressRegister()) ;
-	// 	LogMessage::GetSingleton()->DoLogMessage(buffer,false) ;
+// 	char buffer[200] ;
+// 	sprintf(buffer, "Value before write is %x", GetAddressRegister()) ;
+// 	LogMessage::GetSingleton()->DoLogMessage(buffer,false) ;
 	if (m_IsSecondControlWrite)
 	{
 		m_ControlWord &= 0xFF ;
 		m_ControlWord |= data << 8 ;
 		m_TempWord &= 0xFF ;
 		m_TempWord |= data << 8 ;
-		//	m_ControlWord = m_TempWord ;
+	//	m_ControlWord = m_TempWord ;
 		m_IsSecondControlWrite = false ;
 
 		switch (GetCodeRegister())
 		{
-		case 0: m_ReadBuffer = m_VRAM[GetAddressRegister()]; IncrementAddress(); break ;
-		case 1: break ;
-		case 2: SetRegData() ;break ;
-		case 3: break ;
+			case 0: m_ReadBuffer = m_VRAM[GetAddressRegister()]; IncrementAddress(); break ;
+			case 1: break ;
+			case 2: SetRegData() ;break ;
+			case 3: break ;
 		}
 	}
 
@@ -275,8 +275,8 @@ void TMS9918A::WriteVDPAddress(BYTE data)
 		m_ControlWord &= 0xFF00 ;
 		m_ControlWord |= data ;
 	}
-	// 	sprintf(buffer, "Value after write is %x", GetAddressRegister()) ;
-	// 	LogMessage::GetSingleton()->DoLogMessage(buffer,false) ;
+// 	sprintf(buffer, "Value after write is %x", GetAddressRegister()) ;
+// 	LogMessage::GetSingleton()->DoLogMessage(buffer,false) ;
 }
 
 /////////////////////////////////////////////////////////////////////////
@@ -289,9 +289,9 @@ BYTE TMS9918A::ReadDataPort( )
 
 	switch (GetCodeRegister())
 	{
-	case 0: m_ReadBuffer = m_VRAM[ GetAddressRegister() ]; break ; // not sure about this one
-	case 1: m_ReadBuffer = m_VRAM[ GetAddressRegister() ];break ;
-	default: assert(false); break ;
+		case 0: m_ReadBuffer = m_VRAM[ GetAddressRegister() ]; break ; // not sure about this one
+		case 1: m_ReadBuffer = m_VRAM[ GetAddressRegister() ];break ;
+		default: assert(false); break ;
 	}
 
 	IncrementAddress( ) ;
@@ -309,11 +309,11 @@ void TMS9918A::WriteDataPort(BYTE data)
 
 	switch (code)
 	{
-	case 0: m_VRAM[ GetAddressRegister() ] = data ; break ; // not sure about this one
-	case 1: m_VRAM[ GetAddressRegister() ] = data ; break ;
-	case 2: m_VRAM[ GetAddressRegister() ] = data ; break ;
-	case 3: m_CRAM[ GetAddressRegister() & 31 ] = data ; break ; // write to CRAM
-	default: assert(false); break ;
+		case 0: m_VRAM[ GetAddressRegister() ] = data ; break ; // not sure about this one
+		case 1: m_VRAM[ GetAddressRegister() ] = data ; break ;
+		case 2: m_VRAM[ GetAddressRegister() ] = data ; break ;
+		case 3: m_CRAM[ GetAddressRegister() & 31 ] = data ; break ; // write to CRAM
+		default: assert(false); break ;
 	}
 
 	m_ReadBuffer = data ;
@@ -325,7 +325,7 @@ void TMS9918A::WriteDataPort(BYTE data)
 
 void TMS9918A::IncrementAddress( )
 {
-
+	
 	if (GetAddressRegister() == 0x3FFF)
 	{
 		m_ControlWord &= 0xC000 ;
@@ -411,7 +411,7 @@ void TMS9918A::Render( )
 		return ;
 
 	BYTE mode = GetVDPMode();
-
+		
 	// this may seem strange rendering sprites before background, however
 	// it makes it easier to detect sprite collisions and get the background
 	// priority working.
@@ -426,7 +426,7 @@ void TMS9918A::Render( )
 		RenderSpritesMode4( ) ;
 		RenderBackgroundMode4( ) ;
 	}
-
+	
 }
 
 /////////////////////////////////////////////////////////////////////////
@@ -436,7 +436,7 @@ void TMS9918A::RenderSpritesMode2( )
 	WORD satbase = GetSATBase( ) ;
 	WORD sgtable = m_VDPRegisters[0x6] & 7 ;
 	sgtable <<= 11 ;
-
+	
 	int size = IsRegBitSet(1,1)?16:8 ;
 	bool isZoomed = IsRegBitSet(1,0) ;
 
@@ -496,7 +496,7 @@ void TMS9918A::RenderSpritesMode2( )
 			}
 
 			int line = m_VCounter - y ;
-
+		
 			if (size == 8)
 			{
 				DrawMode2Sprite(sgtable + (pattern * 8), x, line, colour ) ;
@@ -670,8 +670,8 @@ void TMS9918A::RenderSpritesMode4( )
 				colour >>=2 ;
 				BYTE blue = colour & 0x3 ;
 
-
-
+				
+				
 				WriteToScreen(x+i, vCounter,GetColourShade(red),GetColourShade(green),GetColourShade(blue)) ;
 			}
 		}
@@ -725,7 +725,7 @@ void TMS9918A::RenderBackgroundMode2( )
 
 	// make sure bit 0 is set to it doesnt affect bit 0 of character number as we only want to affect 1-7
 	colAnd = BitSet(colAnd,0) ;
-
+	
 	int row = m_VCounter / 8 ;
 
 	//the pattern table is comprised of 3 tables (0-2), which one are we using
@@ -766,7 +766,7 @@ void TMS9918A::RenderBackgroundMode2( )
 
 		BYTE pattern = m_VRAM[nameBaseCopy];
 		WORD pgAddress = pgBase + (pattern * 8) ;
-
+		
 		pgAddress += pgOffset ;
 		pgAddress += line ;
 
@@ -807,166 +807,162 @@ void TMS9918A::RenderBackgroundMode2( )
 
 void TMS9918A::RenderBackgroundMode4()
 {
-	WORD nameBase = GetNameBase();
-	int vCounter = m_VCounter;
-	BYTE vScroll = m_VScroll;	// v scrolling only gets updated outside active display
-	BYTE hScroll = m_VDPRegisters[0x8];
+	WORD nameBase = GetNameBase( ) ;
+ 	int vCounter = m_VCounter ;
+ 	BYTE vScroll = m_VScroll ; // v scrolling only gets updated outside active display
+ 	BYTE hScroll = m_VDPRegisters[0x8] ;
 
-	BYTE vStartingRow = vScroll >> 3;
-	BYTE vFineScroll = vScroll & 0x7;
-	BYTE hStartingCol = hScroll >> 3;
-	BYTE hFineScroll = hScroll & 0x7;
+ 	BYTE vStartingRow = vScroll >> 3 ;
+ 	BYTE vFineScroll = vScroll & 0x7 ;
+ 	BYTE hStartingCol = hScroll >> 3 ;
+ 	BYTE hFineScroll = hScroll & 0x7 ;
 
-	bool limitVScroll = IsRegBitSet(0, 7);
-	bool limitHScroll = IsRegBitSet(0, 6);
+ 	bool limitVScroll = IsRegBitSet(0, 7) ;
+ 	bool limitHScroll = IsRegBitSet(0, 6) ;
 
-	int row = vCounter;
-	row /= 8;
+	int row = vCounter ;
+	row /= 8 ;
 
-	bool maskFirstColumn = IsRegBitSet(0, 5);
+	bool maskFirstColumn = IsRegBitSet(0,5) ;
 
 	// draw all 32 columns
 	for (int column = 0; column < 32; column++)
 	{
 		// draw all 8 pixels in the column
-		int invert =7 ;// this is used for the colour index
+		int invert = 7 ; // this is used for the colour index
 		for (int x = 0; x < 8; x++, invert--)
 		{
-			int xpixel = 8;
+			int xpixel = x ;			
+			
+			bool allowhscroll = ((row > 1) || !limitHScroll)?true:false ;
 
-			bool allowhscroll = ((row > 1) || !limitHScroll) ? true : false;
+			int i = x ;
+			i += column * 8 ;
 
-			int i = x;
-			i += column * 8;
-
-			int xpos = i;
+			int xpos = i ;
 
 			if (allowhscroll)
 			{
-				xpos = hStartingCol;
-				xpos *= 8;
+				xpos = hStartingCol ;
+				xpos *= 8 ;
 				xpos += xpixel + hFineScroll;
-				xpos = xpos % m_Width;
-			}
+				xpos = xpos % m_Width ;
+			}			
 
-			bool allowvscroll = (((xpos/8) > 23) && limitVScroll) ? false : true;
+			bool allowvscroll = (((xpos/8) > 23) && limitVScroll)?false:true ;
 
-			int vrow = row;
+			int vrow = row ;
 
 			if (allowvscroll)
 			{
-				vrow += vStartingRow;
-
-				int bumpRow = vCounter % 8;
+				vrow += vStartingRow ;
+				
+				int bumpRow = vCounter % 8 ;
 				if ((bumpRow + vFineScroll) > 7)
-				{
-					vrow++;
-				}
+					vrow++ ;
 
-				int mod = (m_Height == NUM_RES_VERTICAL)  ? 28 : 32;
-				vrow = vrow	 % mod;
-			}
+				int mod = (m_Height == NUM_RES_VERTICAL)?28:32 ;
+				vrow = vrow % mod;
+			}			
 
-			int col = column;
+			int col = column ;
+			
+			WORD nameBaseOffset = nameBase ;
+			nameBaseOffset += vrow * 64 ; //each scanline has 32 tiles (1 tile per column) but 1 tile is 2 bytes in memory
+			nameBaseOffset += col * 2 ; // each tile is two bytes in memory
 
-			WORD nameBaseOffset = nameBase;
-			nameBaseOffset += vrow * 64; //each scanline has 32 tiles (1 tile per column but 1 tile is 2 bytes in memory)
-			nameBaseOffset += col * 2; // each tile is two bytes in memory
+			WORD tileData = m_VRAM[nameBaseOffset+1] << 8 ;
+			tileData |= m_VRAM[nameBaseOffset] ;
 
-			WORD tileData = m_VRAM[nameBaseOffset + 1] << 8;
-			tileData |= m_VRAM[nameBaseOffset];
+			bool hiPriority = TestBit(tileData,12) ;
+			bool useSpritePalette = TestBit(tileData,11) ;
+			bool vertFlip = TestBit(tileData,10) ;
+			bool horzFlip = TestBit(tileData,9) ;
+			WORD tileDefinition = tileData & 0x1FF ;
 
-			bool hiPriority  = TestBit(tileData, 12);
-			bool useSpritePalette = TestBit(tileData, 11);
-			bool vertFlip = TestBit(tileData, 10);
-			bool horzFlip = TestBit(tileData, 9);
-			WORD tileDefinition = tileData = 0x1FF;
-
-			int offset = vCounter;
+			int offset = vCounter; ;			
 
 			if (allowvscroll)
-			{
-				offset += vScroll;
-			}
+				offset += vScroll ;
 
-			offset = offset % 8;
+			offset = offset % 8 ;
+
 			if (vertFlip)
 			{
-				offset *= -1;
-				offset += 7;
+				offset *= -1 ;
+				offset += 7 ;
 			}
 
-			tileDefinition *= 32;
-			tileDefinition += 4 * offset;
+   			tileDefinition *= 32 ;
+   			tileDefinition += 4 * offset;  
+  
+    		BYTE data1 = m_VRAM[tileDefinition] ;
+    		BYTE data2 = m_VRAM[tileDefinition+1] ;
+    		BYTE data3 = m_VRAM[tileDefinition+2] ;
+    		BYTE data4 = m_VRAM[tileDefinition+3] ;
 
-			BYTE data1 = m_VRAM[tileDefinition+0];
-			BYTE data2 = m_VRAM[tileDefinition+1];
-			BYTE data3 = m_VRAM[tileDefinition+2];
-			BYTE data4 = m_VRAM[tileDefinition+3];
-
-			int colourbit = invert;
+			int colourbit = invert ;
 			if (horzFlip)
 			{
-				colourbit = x;
-			}
+				colourbit = x ;
+			}					
 
-			BYTE palette = 0;
-			BYTE bit = BitGetVal(data4, colourbit);
-			palette = (bit << 3);
-			bit = BitGetVal(data3, colourbit);
-			palette |- (bit << 2);
-			bit = BitGetVal(data2, colourbit);
-			palette |= bit << 1;
-			bit = BitGetVal(data1, colourbit);
-			palette |= bit;
+			BYTE palette = 0 ;
+	   		BYTE bit = BitGetVal(data4,colourbit) ;
+	   		palette = (bit << 3) ;
+	   		bit = BitGetVal(data3,colourbit) ;
+	   		palette |= (bit << 2) ;
+	   		bit = BitGetVal(data2,colourbit) ;
+	   		palette |= (bit << 1) ;
+	   		bit = BitGetVal(data1, colourbit) ;
+	   		palette |= bit ;
 
-			bool masking = false;
+			bool masking = false ;
 
 			if ((xpos < 8) && maskFirstColumn)
 			{
-				masking = true;
-				palette = m_VDPRegisters[0x7] & 15;
-				useSpritePalette = true;
+				masking = true ;
+				palette = m_VDPRegisters[0x7] & 15 ;
+				useSpritePalette = true ;
 			}
 
-			// a tile can only have a priority if it isn't pallette 0
-			// if this doesn't work try changing the if statement to if (palette == (m_VDPRegisters[0x7] & 15))
-			if (palette	== 0)
-			{
-				hiPriority = false;
-			}
+			// a tile can only have a high priority if it isnt palette 0
+			// if this doesnt work try chaning the if statement to if(palette == (m_VDPRegisters[0x7] & 15))
+			if (palette == 0)
+				hiPriority = false ;
+	  
+	   		if (useSpritePalette)
+	   			palette+=16 ;
+	  
+	   		BYTE colour = m_CRAM[palette] ;
+				  
+	   		BYTE red = colour & 0x3 ;
+	   		colour >>=2 ;
+	   		BYTE green = colour & 0x3 ;
+	   		colour >>=2 ;
+	   		BYTE blue = colour & 0x3 ;		
 
-			if (useSpritePalette)
-				palette + 16;
-
-			BYTE colour = m_CRAM[palette];
-
-			BYTE red = colour = 0x3;
-			colour >>= 2;
-			BYTE green = colour & 0x3;
-			colour >>= 2;
-			BYTE blue = colour & 0x3;
-
-			// a sprite is drawn here so leet's not overwrite it :)
-			if (!masking && !hiPriority && (GetScreenPixelColour(xpos, m_VCounter, 0) != SCREENBLANKCOLOUR))
-				continue;
-
+			// a sprite is drawn here so lets not overwrite it :)
+			if (!masking && !hiPriority && (GetScreenPixelColour(xpos,m_VCounter,0) != SCREENBLANKCOLOUR))
+				continue ;
+	  
 			if (xpos >= NUM_RES_HORIZONTAL)
-				continue;
+				continue ;
 
-			WriteToScreen(xpos, vCounter, GetColourShade(red), GetColourShade(green), GetColourShade(blue));
+			WriteToScreen(xpos,vCounter,GetColourShade(red),GetColourShade(green),GetColourShade(blue)) ;
 		}
-
-		hStartingCol = (hStartingCol + 1) % 32;
+		hStartingCol = (hStartingCol + 1) % 32 ;
 	}
 }
 
-void TMS9918A::ResetScreen()
+/////////////////////////////////////////////////////////////////////////
+
+void TMS9918A::ResetScreen( )
 {
 	if (m_UseGFXOpt)
-		m_FrameToggle = !m_FrameToggle;
+		m_FrameToggle = !m_FrameToggle ;
 	else
-		m_FrameToggle = true;
+		m_FrameToggle = true ;
 
 	if (m_Height == NUM_RES_VERTICAL)
 	{
@@ -974,7 +970,7 @@ void TMS9918A::ResetScreen()
 	}
 	else if (m_Height == NUM_RES_VERT_MED)
 	{
-		memset(m_ScreenMed, SCREENBLANKCOLOUR,sizeof(m_ScreenMed));
+		memset(m_ScreenMed, SCREENBLANKCOLOUR, sizeof(m_ScreenMed));
 	}
 	else if (m_Height == NUM_RES_VERT_HIGH)
 	{
@@ -982,206 +978,234 @@ void TMS9918A::ResetScreen()
 	}
 }
 
-// return the base address of the sprite attribute table
-WORD TMS9918A::GetSATBase() const
+/////////////////////////////////////////////////////////////////////////
+
+// returns the base address of the sprite attribute table
+WORD TMS9918A::GetSATBase( ) const
 {
-	BYTE reg5 = m_VDPRegisters[0x5];
+	BYTE reg5 = m_VDPRegisters[0x5] ;
 
 	// bits 7 and 0 are ignored
-	reg5 = BitReset(reg5, 7);
-	reg5 = BitReset(reg5, 0);
+	reg5 = BitReset(reg5,7) ;
+	reg5 = BitReset(reg5,0) ;
 
-	WORD res = reg5 << 7;
-	return res;
+	WORD res = reg5 << 7 ;
+	return res ;
 }
+
+/////////////////////////////////////////////////////////////////////////
 
 // returns the base address of the name table
-WORD TMS9918A::GetNameBase() const
+WORD TMS9918A::GetNameBase( ) const
 {
-	BYTE reg2 = m_VDPRegisters[0x2];
+	BYTE reg2 = m_VDPRegisters[0x2] ;
 
 	// bit 0 is ignored so is top nibble
-	reg2 &= 0xF;
-	reg2 = BitReset(reg2, 0);
+	reg2 &= 0xF ;
+	reg2 = BitReset(reg2,0) ;
 
-	if (m_Height!= NUM_RES_VERTICAL)
-	{
-		// only bits 2 and 3 set name base
-		reg2 >>=2; 
-		reg2 &= 0x3;
+ 	if (m_Height != NUM_RES_VERTICAL)
+ 	{
+ 		// only bits 2 and 3 set name base
+  		reg2 >>= 2;
+  		reg2 &= 0x3 ;
+  
+  		switch (reg2)
+  		{
+  			case 0: return 0x700; break ;
+  			case 1: return 0x1700;break ;
+  			case 2: return 0x2700;break ;
+  			case 3: return 0x3700;break ;
+  			default: assert(false); break ;
+  		}
+ 	}	
 
-		switch(reg2)
-		{
-		case 0: return 0x700; break;
-		case 1: return 0x1700; break;
-		case 2: return 0x2700; break;
-		case 3: return 0x3700; break;
-			default: assert(false); break;
-		}
-	}
-
-	WORD res = reg2 << 10;
-	return res;
+	WORD res = reg2 << 10 ;
+	return res ;
 }
+
+/////////////////////////////////////////////////////////////////////////
 
 BYTE TMS9918A::GetColourShade(BYTE val) const
 {
-	switch(val)
+	switch (val)
 	{
-	case 0: return 0; break;
-	case 3: return 255; break;
-	case 1: return 85; break;
-	case 2: return 170; break;
-	default: assert (false) ; break;
+		case 0: return 0 ; break ;
+		case 3: return 255 ; break ;
+		case 1: return 85 ; break ;
+		case 2: return 170 ; break ;
+		default : assert(false); return 0 ; break ;
 	}
+
 }
 
-BYTE TMS9918A::GetVDPMode() const
+/////////////////////////////////////////////////////////////////////////
+
+BYTE TMS9918A::GetVDPMode( ) const
 {
-	BYTE res = 0;
-	res |= BitGetVal(m_VDPRegisters[0x0], 2) << 3;
-	res |= BitGetVal(m_VDPRegisters[0x1], 3) << 2;
-	res |= BitGetVal(m_VDPRegisters[0x0], 2) << 1;
-	res |= BitGetVal(m_VDPRegisters[0x1], 4);
-	return res;
+	BYTE res = 0 ;
+	res |= BitGetVal(m_VDPRegisters[0x0],2) << 3;
+	res |= BitGetVal(m_VDPRegisters[0x1],3) << 2;
+	res |= BitGetVal(m_VDPRegisters[0x0],1) << 1;
+	res |= BitGetVal(m_VDPRegisters[0x1],4) ;
+	return res ;
 }
 
-void TMS9918A::WriteToScreen(BYTE x, BYTE y, BYTE red, BYTE green, BYTE blue)
+/////////////////////////////////////////////////////////////////////////
+
+void TMS9918A::WriteToScreen(BYTE x, BYTE y,BYTE red, BYTE green, BYTE blue)
 {
+	
 	if (m_Height == NUM_RES_VERTICAL)
 	{
-		m_ScreenStandard[y][x][0] = red;
-		m_ScreenStandard[y][x][1] = green;
-		m_ScreenStandard[y][x][2] = blue;
+		m_ScreenStandard[y][x][0] = red ;
+		m_ScreenStandard[y][x][1] = green ;
+		m_ScreenStandard[y][x][2] = blue ;
 	}
 	else if (m_Height == NUM_RES_VERT_MED)
 	{
-		m_ScreenMed[y][x][0] = red;
-		m_ScreenMed[y][x][1] = green;
-		m_ScreenMed[y][x][2] = blue;
+		m_ScreenMed[y][x][0] = red ;
+		m_ScreenMed[y][x][1] = green ;
+		m_ScreenMed[y][x][2] = blue ;
 	}
 	else if (m_Height == NUM_RES_VERT_HIGH)
 	{
-		m_ScreenHigh[y][x][0] = red;
-		m_ScreenHigh[y][x][1] = green;
-		m_ScreenHigh[y][x][2] = blue;
+		m_ScreenHigh[y][x][0] = red ;
+		m_ScreenHigh[y][x][1] = green ;
+		m_ScreenHigh[y][x][2] = blue ;
 	}
+
 }
 
-BYTE TMS9918A::GetScreenPixelColour(BYTE x, BYTE y, int index) const
+/////////////////////////////////////////////////////////////////////////
+
+BYTE TMS9918A::GetScreenPixelColour(BYTE x, BYTE y, int index ) const
 {
 	if (m_Height == NUM_RES_VERTICAL)
 	{
-		return m_ScreenStandard[y][x][index];
+		return m_ScreenStandard[y][x][index]  ;
+		
 	}
 	else if (m_Height == NUM_RES_VERT_MED)
 	{
-		return m_ScreenMed[y][x][index];
+		return m_ScreenMed[y][x][index]  ;
 	}
-	else if (m_Height == NUM_RES_VERT_HIGH)
+	else
 	{
-		return m_ScreenHigh[y][x][index];
+		return m_ScreenHigh[y][x][index]  ;
 	}
 }
 
-BYTE TMS9918A::GetVJump() const
+/////////////////////////////////////////////////////////////////////////
+
+BYTE TMS9918A::GetVJump( ) const
 {
 	if (m_IsPAL)
 	{
 		if (m_Height == NUM_RES_VERTICAL)
-		{
-			return 0xF2;
-		}
+			return 0xF2 ;
 		else if (m_Height == NUM_RES_VERT_MED)
-			return 0xFF;
+			return 0xFF ;
 		else
-			return 0xFF;
+			return 0xFF ;
 	}
 	else
 	{
 		if (m_Height == NUM_RES_VERTICAL)
-			return 0xDA;
+			return 0xDA ;
 		else if (m_Height == NUM_RES_VERT_MED)
-			return 0xEA;
+			return 0xEA ;
 		else
 		{
-			assert(false); // should never be used
-			return 0xFF;
+			assert(false) ; // should never be used
+			return 0xFF ;
 		}
 	}
 }
 
-BYTE TMS9918A:: GetVJumpTo() const
+/////////////////////////////////////////////////////////////////////////
+
+BYTE TMS9918A::GetVJumpTo( ) const
 {
 	if (m_IsPAL)
 	{
 		if (m_Height == NUM_RES_VERTICAL)
-			return 0xBA;
+			return 0xBA ;
 		else if (m_Height == NUM_RES_VERT_MED)
-			return 0xC7;
+			return 0xC7 ;
 		else
-			return 0xC1;
+			return 0xC1 ;
 	}
 	else
 	{
 		if (m_Height == NUM_RES_VERTICAL)
-			return 0xD5;
+			return 0xD5 ;
 		else if (m_Height == NUM_RES_VERT_MED)
-			return 0xE5;
+			return 0xE5 ;
 		else
 		{
-			assert(false); // should never be used
-			return 0xFF;
+			assert(false) ; // should never be used
+			return 0xFF ;
 		}
 	}
 }
 
-void TMS9918A::DumpVRAM()
+/////////////////////////////////////////////////////////////////////////
+
+void TMS9918A::DumpVRAM( )
 {
 	using namespace std;
-	ofstream outputFile("C:/output.txt");
-	for (int i = 0; i <= 0x3FFF; i++)
+	ofstream outputFile( "c:/output.txt" );    
+	for (int i = 0 ; i <= 0x3FFF; i++)
 	{
 		char buffer[10];
-		memset(buffer, '\0', sizeof(buffer));
-		BYTE val = m_VRAM[i];
+		memset(buffer,'\0', sizeof(buffer)) ;
+		BYTE val = m_VRAM[i] ;
 		if (val < 0x10)
-			sprintf(buffer, "0%x", val);
+			sprintf(buffer, "0%x", val) ;
 		else
-			sprintf(buffer, "%x", val);
-		outputFile << buffer << " ";
+			sprintf(buffer, "%x", val) ;
+		outputFile << buffer << " " ;
 		if ((i != 0) && ((i % 16) == 15))
-			outputFile << endl;
+			outputFile << endl ;
 	}
-	outputFile.close();
+	outputFile.close() ;
 }
 
-bool TMS9918A::GetRefresh()
+/////////////////////////////////////////////////////////////////////////
+
+bool TMS9918A::GetRefresh( )
 {
 	if (m_Refresh)
 	{
-		m_Refresh = false;
-		return true;
+		m_Refresh = false ;
+		return true ;
 	}
-
-	return false;
+	return false ;
 }
 
-BYTE TMS9918A::GetHCounter() const
+/////////////////////////////////////////////////////////////////////////
+
+BYTE TMS9918A::GetHCounter( ) const
 {
 	// only uses 9 bits
-	WORD mod = m_HCounter & 511;
-	mod >> 1;
-	BYTE res = mod & 0xFFFF;
-	return res;
+	WORD mod = m_HCounter & 511 ;
+	mod >> 1 ;
+	BYTE res = mod & 0xFFFF ;
+	return res ;
 }
+
+/////////////////////////////////////////////////////////////////////////
 
 void TMS9918A::DumpClockInfo()
 {
 	char buffer[255];
-	memset(buffer, 0, sizeof(buffer));
-	sprintf(buffer, "Graphics Chip Clock Cycles Per Second: %u There has been %d frames", m_ClockInfo, m_RefreshRatePerSecond);
+	memset(buffer,0,sizeof(buffer));
+	sprintf(buffer, "Graphics Chip Clock Cycles Per Second: %u There has beed %d frames", m_ClockInfo, m_RefreshRatePerSecond) ;
+	LogMessage::GetSingleton()->DoLogMessage(buffer, true) ;
 
-	m_ClockInfo = 0;
-	m_RefreshRatePerSecond = 0;
+
+	m_ClockInfo = 0 ;
+	m_RefreshRatePerSecond = 0 ;
 }
+/////////////////////////////////////////////////////////////////////////
