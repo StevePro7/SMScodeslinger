@@ -220,6 +220,14 @@
 		<Filter
 			Name="Emulator"
 			>
+			<File
+				RelativePath="..\SourceCode\Emulator.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\SourceCode\Emulator.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Z80"
