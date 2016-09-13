@@ -200,6 +200,14 @@
 		<Filter
 			Name="MasterSystem"
 			>
+			<File
+				RelativePath="..\SourceCode\MasterSystem.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\SourceCode\MasterSystem.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="WinMain"
