@@ -424,7 +424,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 
 	//MainWindowLoop( ) ;
-	//char buf[260] = "C:\\Users\\TEST\\Downloads\\SMS-Slinger_Source\\SMS-Slinger_Source\\SMS-Slinger_Source\\ROMS\\Flicky.sg";
+
 	char buf[260] = "ROMS\\Flicky.sg";
 	StartEmulationFromFile(buf) ;
 	ResetBeginGameState( );
