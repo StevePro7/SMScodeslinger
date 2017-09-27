@@ -2,7 +2,7 @@
 #include "SN79489.h"
 #include <math.h>
 #include "LogMessages.h"
-//#include "Emulator.h"
+#include "Emulator.h"
 
 ////////////////////////////////////////////////////////////////////
 

@@ -1,5 +1,5 @@
-#include "LogMessages.h"
 #include "Config.h"
+#include "LogMessages.h"
 #include <assert.h>
 #include <stdio.h>
 #include <time.h>
@@ -10,24 +10,49 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
-LogMessage* LogMessage::m_Instance = NULL;
+LogMessage* LogMessage::m_Instance = 0 ;
 
-LogMessage* LogMessage::CreateInstance()
+LogMessage* LogMessage::CreateInstance( )
 {
-	if (NULL == m_Instance)
-	{
-		m_Instance = new LogMessage();
-	}
-
-	return m_Instance;
+	if (0 == m_Instance)
+		m_Instance = new LogMessage( ) ;
+	return m_Instance ;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
-LogMessage* LogMessage::GetSingleton()
+LogMessage* LogMessage::GetSingleton( )
 {
-	assert(NULL != m_Instance);
-	return m_Instance;
+	assert(m_Instance != 0) ;
+	return m_Instance ;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+LogMessage::LogMessage(void) :
+	m_LogFile(NULL)
+	,m_FileNum(1)
+{
+	Open( );
+	
+}
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+LogMessage::~LogMessage(void)
+{
+	if (NULL != m_LogFile)
+		fclose((FILE*)m_LogFile) ;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+void LogMessage::Open( )
+{
+	char buffer[100];
+	sprintf(buffer, "emulator%d.log", m_FileNum) ;
+	m_FileNum++ ;
+	m_LogFile = (_iobuf*)fopen(buffer, "w") ;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -36,56 +61,28 @@ void LogMessage::DoLogMessage(const char* message, bool logToConsole)
 {
 	if (NULL != m_LogFile)
 	{
-		long long size = ftell(m_LogFile);
+		long long size = ftell(m_LogFile) ;
 		if (size >= (30 * 1024 * 1024))
 		{
 			fclose(m_LogFile);
-			Open();
+			Open( ) ;
 		}
-
-		fputs(message, (FILE*)m_LogFile);
-		fputs("\r\n", (FILE*)m_LogFile);
+		fputs(message, (FILE*)m_LogFile) ;
+		fputs("\r\n", (FILE*)m_LogFile) ;
 	}
 
-	if (!logToConsole)
-	{
-		return;
-	}
+	if (false == logToConsole)
+		return ;
 
 #ifdef WIN32
-	OutputDebugStr(message);
-	OutputDebugStr("\n");
+	OutputDebugStr(message) ;
+	OutputDebugStr("\n") ;
 #else
-	printf(message);
-	printf("\n");
+	printf(message) ;
+	printf("\n") ;
 #endif
-}
 
-////////////////////////////////////////////////////////////////////////////////////////
 
-LogMessage::LogMessage(void) : m_LogFile(NULL), m_FileNum(1)
-{
-	Open();
-}
-
-////////////////////////////////////////////////////////////////////////////////////////
-
-LogMessage::~LogMessage(void)
-{
-	if (NULL != m_LogFile)
-	{
-		fclose((FILE*)m_LogFile);
-	}
-}
-
-////////////////////////////////////////////////////////////////////////////////////////
-
-void LogMessage::Open()
-{
-	char buffer[100];
-	sprintf(buffer, "emulator%d.log", m_FileNum) ;
-	m_FileNum++ ;
-	m_LogFile = (_iobuf*)fopen(buffer, "w") ;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////

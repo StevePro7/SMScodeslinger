@@ -2,7 +2,7 @@
 #ifndef _MASTER_SYSTEM_H
 #define _MASTER_SYSTEM_H
 
-class Emulator;
+class Emulator ;
 
 #ifdef WIN32
 #include <Windows.h>
@@ -16,29 +16,31 @@ class Emulator;
 class MasterSystem
 {
 public:
-	static MasterSystem* CreateInstance();
+	static	MasterSystem*		CreateInstance		( ) ;
 
-	bool CreateSDLWindow();
-	void StartRom(const char* path);
+			bool				CreateSDLWindow		( ) ;
+			void				StartRom			( const char* path ) ;
 
-	void BeginGame(int fps, bool useGfxOpt);
-	unsigned char GetMemoryByte(int i);
-	~MasterSystem(void);
+			void				BeginGame			( int fps, bool useGfxOpt ) ;
+			unsigned char		GetMemoryByte		(int i) ;
+
+								~MasterSystem		(void);
 
 private:
-	MasterSystem(void);
+								MasterSystem		(void);
 
-	void InitGL();
-	void RenderGame();
-	void RomLoop(int fps);
-	void HandleInput(const SDL_Event& event);
+			void				InitGL				( ) ;
+			void				RenderGame			( ) ;
+			void				RomLoop				( int fps ) ;
+			void                HandleInput         ( const SDL_Event& event );
+			
 
-	static MasterSystem* m_Instance;
+	static	MasterSystem*		m_Instance ;
 
-	Emulator* m_Emulator;
-	int m_Width;
-	int m_Height;
-	bool m_UseGFXOpt;
+			Emulator*			m_Emulator ;
+			int					m_Width ;
+			int					m_Height ;
+			bool				m_UseGFXOpt ;
 };
 
-#endif//_MASTER_SYSTEM_H
+#endif

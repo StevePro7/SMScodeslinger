@@ -70,7 +70,7 @@ bool GameSettings::LoadSettings( )
 	{
 		memset(buffer, 0, sizeof(buffer)) ;
 		file.getline(buffer,256) ;
-
+		
 		char ch = buffer[0] ;
 
 		// ignore blank lines, comments etc
@@ -79,9 +79,9 @@ bool GameSettings::LoadSettings( )
 
 		char* tokens = NULL;
 		tokens = strtok(buffer, ":") ;
-
+		
 		settingname = tokens ;
-
+		
 		tokens = strtok(NULL, "*") ;
 		settingvalue = tokens ;
 
