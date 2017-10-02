@@ -425,7 +425,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	//MainWindowLoop( ) ;
 
-	char buf[260] = "ROMS\\Flicky.sg";
+	char buf[260] = "ROMS/MonacoGP.sms";
 	StartEmulationFromFile(buf) ;
 	ResetBeginGameState( );
 

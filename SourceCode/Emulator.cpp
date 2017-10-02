@@ -179,7 +179,7 @@ void Emulator::InsertCartridge(const char* path)
 	m_SecondBankPage = 1 ;
 	m_ThirdBankPage = 2 ;
 
-	m_IsPAL = false ;
+	m_IsPAL = true ;
 	m_GraphicsChip.Reset( IsPAL() ) ;
 	m_FPS = IsPAL()?50:60 ;
 	m_IsCodeMasters = IsCodeMasters( ) ;
