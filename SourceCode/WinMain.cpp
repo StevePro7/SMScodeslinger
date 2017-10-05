@@ -61,7 +61,7 @@ void LoadDebugInfo( )
 void StartRom (const char* path)
 {
 	g_MasterSystem->CreateSDLWindow( ) ;
-	g_MasterSystem->StartRom(path) ;
+		g_MasterSystem->StartRom(path) ;
 	//LoadDebugInfo( ) ;
 	g_MasterSystem->BeginGame(60,false) ;
 }
@@ -425,7 +425,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	//MainWindowLoop( ) ;
 
-	char buf[260] = "ROMS/MonacoGP.sms";
+	char buf[260] = "ROMS/FantasticDizzy.sms";
 	StartEmulationFromFile(buf) ;
 	ResetBeginGameState( );
 
